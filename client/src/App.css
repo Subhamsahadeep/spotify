@@ -1,10 +1,26 @@
 .App {
   text-align: center;
 }
-
+#root{
+  background:#000000;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+.lyrics-background{
+  background: #e8e8e8;
+  opacity: 0.75;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.lyrics-background-dark{
+  background: #000000;
+  color: #ffffff;
+  opacity: 0.75;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -12,6 +28,7 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 
 .App-header {
   background-color: #282c34;
@@ -35,4 +52,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+.PlayerRSWP{
+  padding:20px 10px;
+  border-radius:10px
+}
+._ContentRSWP{
+  padding-top: 5px;
 }

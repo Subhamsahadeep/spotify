@@ -1,4 +1,5 @@
 import './App.css';
+import './common.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from './Login';
 import Dashboard from "./Dashboard";

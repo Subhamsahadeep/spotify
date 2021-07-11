@@ -15,12 +15,16 @@ export default function Dashboard({ code }) {
   const [search, setSearch] = useState("")
   const [searchResults, setSearchResults] = useState([])
   const [playingTrack, setPlayingTrack] = useState()
-  const [lyrics, setLyrics] = useState("")
+  const [lyrics, setLyrics] = useState("");
+  const [bgImage,setBgImage] = useState("");
 
   function chooseTrack(track) {
+    console.log("track..",track);
     setPlayingTrack(track)
     setSearch("")
     setLyrics("")
+    let str = 'url('+track.largestUrl+')';
+    setBgImage(str);
   }
 
   useEffect(() => {
@@ -50,6 +54,7 @@ export default function Dashboard({ code }) {
     let cancel = false
     spotifyApi.searchTracks(search).then(res => {
       if (cancel) return
+      console.log("songs ::",res.body.tracks.items);
       setSearchResults(
         res.body.tracks.items.map(track => {
           const smallestAlbumImage = track.album.images.reduce(
@@ -60,11 +65,20 @@ export default function Dashboard({ code }) {
             track.album.images[0]
           )
 
+          const largestAlbumImage = track.album.images.reduce(
+            (largest, image) => {
+              if (image.height > largest.height) return image
+              return largest
+            },
+            track.album.images[0]
+          )
+
           return {
             artist: track.artists[0].name,
             title: track.name,
             uri: track.uri,
             albumUrl: smallestAlbumImage.url,
+            largestUrl: largestAlbumImage.url,
           }
         })
       )
@@ -90,8 +104,8 @@ export default function Dashboard({ code }) {
           />
         ))}
         {searchResults.length === 0 && (
-          <div className="text-center" style={{ whiteSpace: "pre" }}>
-            {lyrics}
+          <div className="text-center" style={{ whiteSpace: "pre" , backgroundImage: bgImage, height: "100%", width: "100%", backgroundPosition: 'center', backgroundRepeat:'no-repeat',  overflowY:"auto"}}>
+            <div className="lyrics-background-dark">{lyrics}</div>
           </div>
         )}
       </div>
